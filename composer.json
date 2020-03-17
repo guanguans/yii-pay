@@ -21,7 +21,7 @@
     ],
     "require": {
         "yiisoft/yii2": "~2.0",
-        "yansongda/pay": "^2.0"
+        "yansongda/pay": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~7"

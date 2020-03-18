@@ -21,58 +21,58 @@ class Pay extends Component
     /**
      * @var array
      */
-    protected $wechatConfig = [];
+    protected $wechat = [];
 
     /**
      * @var array
      */
-    protected $alipayConfig = [];
+    protected $alipay = [];
 
     /**
      * @return array
      */
-    public function getWechatConfig()
+    public function getWechat()
     {
-        return $this->wechatConfig;
+        return $this->wechat;
     }
 
     /**
-     * @param array $wechatConfig
+     * @param array $wechat
      */
-    public function setWechatConfig($wechatConfig)
+    public function setWechat($wechat)
     {
-        $this->wechatConfig = $wechatConfig;
+        $this->wechat = $wechat;
     }
 
     /**
      * @return array
      */
-    public function getAlipayConfig()
+    public function getAlipay()
     {
-        return $this->alipayConfig;
+        return $this->alipay;
     }
 
     /**
-     * @param array $alipayConfig
+     * @param array $alipay
      */
-    public function setAlipayConfig($alipayConfig)
+    public function setAlipay($alipay)
     {
-        $this->alipayConfig = $alipayConfig;
+        $this->alipay = $alipay;
     }
 
     /**
      * @return \Yansongda\Pay\Gateways\Wechat
      */
-    public function getWechat()
+    public function wechat()
     {
-        return YsdPay::wechat($this->wechatConfig);
+        return YsdPay::wechat($this->wechat);
     }
 
     /**
      * @return \Yansongda\Pay\Gateways\Alipay
      */
-    public function getAlipay()
+    public function alipay()
     {
-        return YsdPay::alipay($this->alipayConfig);
+        return YsdPay::alipay($this->alipay);
     }
 }

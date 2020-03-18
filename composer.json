@@ -5,7 +5,7 @@
         "alipay",
         "wechat"
     ],
-    "description": "Pay For Yii.",
+    "description": "适用于 Yii 的 Alipay 和 WeChat 的支付扩展包",
     "support": {
         "issues": "https://github.com/guanguans/yii-pay/issues",
         "source": "https://github.com/guanguans/yii-pay"

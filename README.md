@@ -194,6 +194,12 @@ class PayController extends Controller
 }
 ```
 
+## 测试
+
+``` shell
+$ composer tests
+```
+
 ## 相关链接
 
 * [https://github.com/yansongda/pay](https://github.com/yansongda/pay)，[yansongda](https://github.com/yansongda)

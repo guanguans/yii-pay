@@ -10,15 +10,41 @@
 
 namespace Guanguans\Tests;
 
+use Yansongda\Pay\Gateways\Alipay;
+use Yansongda\Pay\Gateways\Wechat;
+use Yii;
+
 class PayTest extends TestCase
 {
+    protected $pay;
+
     protected function setUp()
     {
         parent::setUp();
+        $this->pay = Yii::$app->Pay;
     }
 
-    public function testTest()
+    public function testSetWechat()
     {
-        $this->assertIsString('这是一个测试');
+        $config = ['mac_str'];
+        $this->pay->setWechat($config);
+        $this->assertSame($config, $this->pay->wechat);
+    }
+
+    public function testSetAlipay()
+    {
+        $config = ['mac_str'];
+        $this->pay->setAlipay($config);
+        $this->assertSame($config, $this->pay->alipay);
+    }
+
+    public function testWechat()
+    {
+        $this->assertInstanceOf(Wechat::class, $this->pay->wechat());
+    }
+
+    public function testAlipay()
+    {
+        $this->assertInstanceOf(Alipay::class, $this->pay->alipay());
     }
 }

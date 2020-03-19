@@ -8,7 +8,7 @@
 [![codecov](https://codecov.io/gh/guanguans/yii-pay/branch/master/graph/badge.svg)](https://codecov.io/gh/guanguans/yii-pay)
 [![StyleCI](https://github.styleci.io/repos/247638891/shield?branch=master)](https://github.styleci.io/repos/247638891)
 [![Total Downloads](https://poser.pugx.org/guanguans/yii-pay/downloads)](https://packagist.org/packages/guanguans/yii-pay)
-[![Latest Stable Version](https://poser.pugx.org/phpunit/phpunit/version)](https://packagist.org/packages/phpunit/phpunit)
+[![Latest Stable Version](https://poser.pugx.org/guanguans/yii-pay/v/stable)](https://packagist.org/packages/guanguans/yii-pay)
 [![License](https://poser.pugx.org/guanguans/yii-pay/license)](https://packagist.org/packages/guanguans/yii-pay)
 
 ## 环境要求

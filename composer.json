@@ -37,9 +37,9 @@
         }
     },
     "scripts": {
-        "tests": "./vendor/bin/phpunit --coverage-text --color=always --debug --verbose"
+        "test": "./vendor/bin/phpunit --coverage-text --color=always --debug --verbose"
     },
     "scripts-descriptions": {
-        "tests": "Run the phpunit tests."
+        "test": "Run the phpunit test."
     }
 }

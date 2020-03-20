@@ -11,10 +11,8 @@
 $config = [
     'id' => 'yii2-pay-app',
     'basePath' => dirname(__DIR__),
-    'vendorPath' => dirname(dirname(__DIR__)).'/vendor',
-    'runtimePath' => dirname(dirname(__DIR__)).'/runtime',
     'components' => [
-        'Pay' => [
+        'pay' => [
             'class' => 'Guanguans\YiiPay\Pay',
             'wechat' => [
                 'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID

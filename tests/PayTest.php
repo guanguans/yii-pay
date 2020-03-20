@@ -21,7 +21,7 @@ class PayTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->pay = Yii::$app->Pay;
+        $this->pay = Yii::$app->pay;
     }
 
     public function testSetWechat()

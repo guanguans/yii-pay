@@ -18,7 +18,7 @@
 ## 安装
 
 ``` shell
-$ composer require guanguans/yii-pay
+$ composer require guanguans/yii-pay -v
 ```
 
 ## 配置
@@ -28,7 +28,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
 ``` php
 'components' => [
 	// ...
-	'Pay' => [
+	'pay' => [
         'class' => 'Guanguans\YiiPay\Pay',
         'wechat' => [
             'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
@@ -85,7 +85,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
 ### 获取 alipay 实例
 
 ``` php
-Yii::$app->Pay->alipay();
+Yii::$app->pay->alipay();
 ```
 
 ### 支付宝使用示例，更多详细文档请参考 [yansongda/pay](https://github.com/yansongda/pay)
@@ -107,14 +107,14 @@ class PayController extends Controller
             'subject' => 'test subject - 测试',
         ];
 
-        $alipay = Yii::$app->Pay->alipay()->web($order);
+        $alipay = Yii::$app->pay->alipay()->web($order);
 
         return $alipay->send();
     }
 
     public function actionReturn()
     {
-        $data = Yii::$app->Pay->alipay()->verify();
+        $data = Yii::$app->pay->alipay()->verify();
 
         // 订单号：$data->out_trade_no
         // 支付宝交易号：$data->trade_no
@@ -123,7 +123,7 @@ class PayController extends Controller
 
     public function actionNotify()
     {
-        $alipay = Yii::$app->Pay->alipay();
+        $alipay = Yii::$app->pay->alipay();
     
         try{
             $data = $alipay->verify();
@@ -147,7 +147,7 @@ class PayController extends Controller
 ### 获取微信实例
 
 ``` php
-Yii::$app->Pay->wechat();
+Yii::$app->pay->wechat();
 ```
 
 ### 微信使用示例，更多详细文档请参考 [yansongda/pay](https://github.com/yansongda/pay)
@@ -170,7 +170,7 @@ class PayController extends Controller
             'openid' => 'onkVf1FjWS5SBIixxxxxxx',
         ];
 
-        $pay = Yii::$app->Pay->wechat()->mp($order);
+        $pay = Yii::$app->pay->wechat()->mp($order);
 
         // $pay->appId
         // $pay->timeStamp
@@ -181,7 +181,7 @@ class PayController extends Controller
 
     public function actionNotify()
     {
-        $pay = Yii::$app->Pay->wechat();
+        $pay = Yii::$app->pay->wechat();
 
         try{
             $data = $pay->verify();
@@ -197,7 +197,7 @@ class PayController extends Controller
 ## 测试
 
 ``` shell
-$ composer tests
+$ composer test
 ```
 
 ## 相关链接

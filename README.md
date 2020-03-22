@@ -1,6 +1,6 @@
 <h1 align="center">yii-pay</h1>
 
-> 基于 [yansongda/pay](https://github.com/yansongda/pay) 开发的适配于 yii 的支付扩展包。
+> 基于 [yansongda/pay](https://github.com/yansongda/pay) 开发的适配于 Yii 的 alipay 和 wechat 的支付扩展包。
 
 [![Build Status](https://travis-ci.org/guanguans/yii-pay.svg?branch=master)](https://travis-ci.org/guanguans/yii-pay)
 [![Build Status](https://scrutinizer-ci.com/g/guanguans/yii-pay/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/yii-pay/build-status/master)
@@ -107,7 +107,13 @@ class PayController extends Controller
             'subject' => 'test subject - 测试',
         ];
 
-        $alipay = Yii::$app->pay->alipay()->web($order);
+        $alipay = Yii::$app->pay->alipay()->web($order); // 电脑支付
+        // $alipay = Yii::$app->pay->alipay()->wap($order); // 手机网站支付
+        // $alipay = Yii::$app->pay->alipay()->app($order); // APP 支付
+        // $alipay = Yii::$app->pay->alipay()->pos($order); // 刷卡支付
+        // $alipay = Yii::$app->pay->alipay()->scan($order); // 扫码支付
+        // $alipay = Yii::$app->pay->alipay()->transfer($order); // 帐户转账
+        // $alipay = Yii::$app->pay->alipay()->mini($order); // 小程序支付
 
         return $alipay->send();
     }
@@ -170,7 +176,15 @@ class PayController extends Controller
             'openid' => 'onkVf1FjWS5SBIixxxxxxx',
         ];
 
-        $pay = Yii::$app->pay->wechat()->mp($order);
+        $pay = Yii::$app->pay->wechat()->mp($order); // 公众号支付
+        // $pay = Yii::$app->pay->wechat()->miniapp($order); // 小程序支付
+        // $pay = Yii::$app->pay->wechat()->wap($order); // H5 支付
+        // $pay = Yii::$app->pay->wechat()->scan($order); // 扫码支付
+        // $pay = Yii::$app->pay->wechat()->pos($order); // 刷卡支付
+        // $pay = Yii::$app->pay->wechat()->app($order); // APP 支付
+        // $pay = Yii::$app->pay->wechat()->transfer($order); // 企业付款
+        // $pay = Yii::$app->pay->wechat()->redpack($order); // 普通红包
+        // $pay = Yii::$app->pay->wechat()->groupRedpack($order); // 分裂红包
 
         // $pay->appId
         // $pay->timeStamp

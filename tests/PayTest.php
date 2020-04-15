@@ -12,6 +12,7 @@ namespace Guanguans\Tests;
 
 use Yansongda\Pay\Gateways\Alipay;
 use Yansongda\Pay\Gateways\Wechat;
+use Yansongda\Pay\Log;
 use Yii;
 
 class PayTest extends TestCase
@@ -46,5 +47,10 @@ class PayTest extends TestCase
     public function testAlipay()
     {
         $this->assertInstanceOf(Alipay::class, $this->pay->alipay());
+    }
+
+    public function testLog()
+    {
+        $this->assertInstanceOf(Log::class, $this->pay->log());
     }
 }

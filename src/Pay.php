@@ -10,6 +10,7 @@
 
 namespace Guanguans\YiiPay;
 
+use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
 use yii\base\Component;
 
@@ -83,5 +84,13 @@ class Pay extends Component
     public function alipay()
     {
         return YsdPay::alipay($this->alipay);
+    }
+
+    /**
+     * @return \Yansongda\Pay\Log
+     */
+    public function log()
+    {
+        return new Log();
     }
 }

@@ -25,32 +25,37 @@ class PayTest extends TestCase
         $this->pay = Yii::$app->pay;
     }
 
-    public function testSetWechat()
+    public function testGetWechat()
     {
-        $config = ['mac_str'];
-        $this->pay->setWechat($config);
-        $this->assertSame($config, $this->pay->wechat);
+        $this->assertInstanceOf(Wechat::class, $this->pay->getWechat());
+        $this->assertInstanceOf(Wechat::class, $this->pay->wechat);
     }
 
-    public function testSetAlipay()
+    public function testGetAlipay()
     {
-        $config = ['mac_str'];
-        $this->pay->setAlipay($config);
-        $this->assertSame($config, $this->pay->alipay);
+        $this->assertInstanceOf(Alipay::class, $this->pay->getAlipay());
+        $this->assertInstanceOf(Alipay::class, $this->pay->alipay);
     }
 
-    public function testWechat()
+    public function testGetLog()
     {
-        $this->assertInstanceOf(Wechat::class, $this->pay->wechat());
+        $this->assertInstanceOf(Log::class, $this->pay->getLog());
+        $this->assertInstanceOf(Log::class, $this->pay->log);
     }
 
-    public function testAlipay()
+    public function testCall()
     {
-        $this->assertInstanceOf(Alipay::class, $this->pay->alipay());
-    }
+        $mock_string = 'mock_string';
+        $mock_array = ['mock_array'];
 
-    public function testLog()
-    {
-        $this->assertInstanceOf(Log::class, $this->pay->log());
+        $this->assertSame($this->pay->log->log(100, $mock_string), $this->pay->log(100, $mock_string));
+        $this->assertSame($this->pay->log->debug($mock_string, $mock_array), $this->pay->debug($mock_string, $mock_array));
+        $this->assertSame($this->pay->log->info($mock_string, $mock_array), $this->pay->info($mock_string, $mock_array));
+        $this->assertSame($this->pay->log->notice($mock_string, $mock_array), $this->pay->notice($mock_string, $mock_array));
+        $this->assertSame($this->pay->log->warning($mock_string, $mock_array), $this->pay->warning($mock_string, $mock_array));
+        $this->assertSame($this->pay->log->error($mock_string, $mock_array), $this->pay->error($mock_string, $mock_array));
+        $this->assertSame($this->pay->log->critical($mock_string, $mock_array), $this->pay->critical($mock_string, $mock_array));
+        $this->assertSame($this->pay->log->alert($mock_string, $mock_array), $this->pay->alert($mock_string, $mock_array));
+        $this->assertSame($this->pay->log->emergency($mock_string, $mock_array), $this->pay->emergency($mock_string, $mock_array));
     }
 }

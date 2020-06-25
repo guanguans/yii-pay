@@ -12,6 +12,7 @@ namespace Guanguans\YiiPay;
 
 use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
+use Yii;
 use yii\base\Component;
 
 /**
@@ -22,24 +23,42 @@ class Pay extends Component
     /**
      * @var array
      */
-    protected $wechat = [];
+    public $wechatOption = [];
 
     /**
      * @var array
      */
-    protected $alipay = [];
+    public $alipayOption = [];
+
+    protected $alipay;
+
+    protected $wechat;
+
+    protected $log;
 
     /**
      * Initializes the object.
      * This method is invoked at the end of the constructor after the object is initialized with the given configuration.
+     *
+     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
         parent::init();
+
+        $this->log = Yii::createObject(Log::class);
+
+        if ($this->wechatOption) {
+            $this->wechat = YsdPay::wechat($this->wechatOption);
+        }
+
+        if ($this->alipayOption) {
+            $this->alipay = YsdPay::alipay($this->alipayOption);
+        }
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getWechat()
     {
@@ -47,15 +66,7 @@ class Pay extends Component
     }
 
     /**
-     * @param array $wechat
-     */
-    public function setWechat($wechat)
-    {
-        $this->wechat = $wechat;
-    }
-
-    /**
-     * @return array
+     * @return mixed
      */
     public function getAlipay()
     {
@@ -63,34 +74,21 @@ class Pay extends Component
     }
 
     /**
-     * @param array $alipay
+     * @return mixed
      */
-    public function setAlipay($alipay)
+    public function getLog()
     {
-        $this->alipay = $alipay;
+        return $this->log;
     }
 
     /**
-     * @return \Yansongda\Pay\Gateways\Wechat
+     * @param string $method
+     * @param array  $arguments
+     *
+     * @return mixed
      */
-    public function wechat()
+    public function __call($method, $arguments)
     {
-        return YsdPay::wechat($this->wechat);
-    }
-
-    /**
-     * @return \Yansongda\Pay\Gateways\Alipay
-     */
-    public function alipay()
-    {
-        return YsdPay::alipay($this->alipay);
-    }
-
-    /**
-     * @return \Yansongda\Pay\Log
-     */
-    public function log()
-    {
-        return new Log();
+        return call_user_func_array([$this->log, $method], $arguments);
     }
 }

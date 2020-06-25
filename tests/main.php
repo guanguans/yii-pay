@@ -14,7 +14,7 @@ $config = [
     'components' => [
         'pay' => [
             'class' => 'Guanguans\YiiPay\Pay',
-            'wechat' => [
+            'wechatOption' => [
                 'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
                 'app_id' => 'wxb3fxxxxxxxxxxx', // 公众号 APPID
                 'miniapp_id' => 'wxb3fxxxxxxxxxxx', // 小程序 APPID
@@ -36,7 +36,7 @@ $config = [
                 ],
                 // 'mode' => 'dev', // optional, dev/hk;当为 `hk` 时，为香港 gateway。
             ],
-            'alipay' => [
+            'alipayOption' => [
                 'app_id' => '2016082000295641',
                 'notify_url' => 'http://xxxxxx.cn/notify.php',
                 'return_url' => 'http://xxxxxx.cn/return.php',

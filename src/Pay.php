@@ -14,6 +14,7 @@ use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
 use Yii;
 use yii\base\Component;
+use yii\base\InvalidConfigException;
 
 /**
  * Class Pay.
@@ -59,17 +60,29 @@ class Pay extends Component
 
     /**
      * @return mixed
+     *
+     * @throws \yii\base\InvalidConfigException
      */
     public function getWechat()
     {
+        if (empty($this->wechat)) {
+            throw new InvalidConfigException(sprintf('Configuration cannot be empty. : %s', 'wechatOption'));
+        }
+
         return $this->wechat;
     }
 
     /**
      * @return mixed
+     *
+     * @throws \yii\base\InvalidConfigException
      */
     public function getAlipay()
     {
+        if (empty($this->wechat)) {
+            throw new InvalidConfigException(sprintf('Configuration cannot be empty. : %s', 'alipayOption'));
+        }
+
         return $this->alipay;
     }
 

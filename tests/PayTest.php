@@ -14,6 +14,7 @@ use Yansongda\Pay\Gateways\Alipay;
 use Yansongda\Pay\Gateways\Wechat;
 use Yansongda\Pay\Log;
 use Yii;
+use yii\base\InvalidConfigException;
 
 class PayTest extends TestCase
 {
@@ -57,5 +58,43 @@ class PayTest extends TestCase
         $this->assertSame($this->pay->log->critical($mock_string, $mock_array), $this->pay->critical($mock_string, $mock_array));
         $this->assertSame($this->pay->log->alert($mock_string, $mock_array), $this->pay->alert($mock_string, $mock_array));
         $this->assertSame($this->pay->log->emergency($mock_string, $mock_array), $this->pay->emergency($mock_string, $mock_array));
+    }
+
+    public function testInvalidWechatOption()
+    {
+        $config = [
+            'id' => 'yii2-pay-app',
+            'basePath' => dirname(__DIR__),
+            'components' => [
+                'pay' => [
+                    'class' => 'Guanguans\YiiPay\Pay',
+                    'wechatOption' => [],
+                    'alipayOption' => [],
+                ],
+            ],
+        ];
+        $app = new yii\web\Application($config);
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessage(sprintf('Configuration cannot be empty. : %s', 'wechatOption'));
+        Yii::$app->pay->getWechat();
+    }
+
+    public function testInvalidAlipayOption()
+    {
+        $config = [
+            'id' => 'yii2-pay-app',
+            'basePath' => dirname(__DIR__),
+            'components' => [
+                'pay' => [
+                    'class' => 'Guanguans\YiiPay\Pay',
+                    'wechatOption' => [],
+                    'alipayOption' => [],
+                ],
+            ],
+        ];
+        $app = new yii\web\Application($config);
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessage(sprintf('Configuration cannot be empty. : %s', 'alipayOption'));
+        Yii::$app->pay->getAlipay();
     }
 }

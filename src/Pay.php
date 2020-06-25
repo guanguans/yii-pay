@@ -10,6 +10,7 @@
 
 namespace Guanguans\YiiPay;
 
+use Guanguans\YiiPay\Traits\Macroable;
 use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
 use Yii;
@@ -21,6 +22,8 @@ use yii\base\InvalidConfigException;
  */
 class Pay extends Component
 {
+    use Macroable;
+
     /**
      * @var array
      */

@@ -2,6 +2,8 @@
 
 > 基于 [yansongda/pay](https://github.com/yansongda/pay) 开发的适配于 Yii 的 alipay 和 wechat 的支付扩展包。
 
+<p align="center"><img src="./docs/usage.png"></p>
+
 [![Build Status](https://travis-ci.org/guanguans/yii-pay.svg?branch=master)](https://travis-ci.org/guanguans/yii-pay)
 [![Build Status](https://scrutinizer-ci.com/g/guanguans/yii-pay/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/yii-pay/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/guanguans/yii-pay/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/guanguans/yii-pay/?branch=master)
@@ -30,7 +32,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
 	// ...
 	'pay' => [
         'class' => 'Guanguans\YiiPay\Pay',
-        'wechat' => [
+        'wechatOption' => [
             'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
             'app_id' => 'wxb3fxxxxxxxxxxx', // 公众号 APPID
             'miniapp_id' => 'wxb3fxxxxxxxxxxx', // 小程序 APPID
@@ -52,7 +54,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
             ],
             // 'mode' => 'dev', // optional, dev/hk;当为 `hk` 时，为香港 gateway。
         ],
-        'alipay' => [
+        'alipayOption' => [
             'app_id' => '2016082000295641',
             'notify_url' => 'http://xxxxxx.cn/notify.php',
             'return_url' => 'http://xxxxxx.cn/return.php',
@@ -85,7 +87,9 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
 ### 获取 alipay 实例
 
 ``` php
-Yii::$app->pay->alipay();
+Yii::$app->pay->getAlipay();
+// or
+Yii::$app->pay->alipay;
 ```
 
 ### 支付宝使用示例，更多详细文档请参考 [yansongda/pay](https://github.com/yansongda/pay)
@@ -107,20 +111,20 @@ class PayController extends Controller
             'subject' => 'test subject - 测试',
         ];
 
-        $alipay = Yii::$app->pay->alipay()->web($order); // 电脑支付
-        // $alipay = Yii::$app->pay->alipay()->wap($order); // 手机网站支付
-        // $alipay = Yii::$app->pay->alipay()->app($order); // APP 支付
-        // $alipay = Yii::$app->pay->alipay()->pos($order); // 刷卡支付
-        // $alipay = Yii::$app->pay->alipay()->scan($order); // 扫码支付
-        // $alipay = Yii::$app->pay->alipay()->transfer($order); // 帐户转账
-        // $alipay = Yii::$app->pay->alipay()->mini($order); // 小程序支付
+        $alipay = Yii::$app->pay->getAlipay()->web($order); // 电脑支付
+        // $alipay = Yii::$app->pay->getAlipay()->wap($order); // 手机网站支付
+        // $alipay = Yii::$app->pay->getAlipay()->app($order); // APP 支付
+        // $alipay = Yii::$app->pay->getAlipay()->pos($order); // 刷卡支付
+        // $alipay = Yii::$app->pay->getAlipay()->scan($order); // 扫码支付
+        // $alipay = Yii::$app->pay->getAlipay()->transfer($order); // 帐户转账
+        // $alipay = Yii::$app->pay->getAlipay()->mini($order); // 小程序支付
 
         return $alipay->send();
     }
 
     public function actionReturn()
     {
-        $data = Yii::$app->pay->alipay()->verify();
+        $data = Yii::$app->pay->getAlipay()->verify();
 
         // 订单号：$data->out_trade_no
         // 支付宝交易号：$data->trade_no
@@ -129,7 +133,7 @@ class PayController extends Controller
 
     public function actionNotify()
     {
-        $alipay = Yii::$app->pay->alipay();
+        $alipay = Yii::$app->pay->getAlipay();
     
         try{
             $data = $alipay->verify();
@@ -141,6 +145,7 @@ class PayController extends Controller
             // 4、验证app_id是否为该商户本身。
             // 5、其它业务逻辑情况
 
+            Yii::$app->pay->getLog()->debug('Alipay notify', $data->all());
         } catch (\Exception $e) {
             // $e->getMessage();
         }
@@ -153,7 +158,9 @@ class PayController extends Controller
 ### 获取微信实例
 
 ``` php
-Yii::$app->pay->wechat();
+Yii::$app->pay->getWechat();
+// or
+Yii::$app->pay->wechat;
 ```
 
 ### 微信使用示例，更多详细文档请参考 [yansongda/pay](https://github.com/yansongda/pay)
@@ -176,15 +183,15 @@ class PayController extends Controller
             'openid' => 'onkVf1FjWS5SBIixxxxxxx',
         ];
 
-        $pay = Yii::$app->pay->wechat()->mp($order); // 公众号支付
-        // $pay = Yii::$app->pay->wechat()->miniapp($order); // 小程序支付
-        // $pay = Yii::$app->pay->wechat()->wap($order); // H5 支付
-        // $pay = Yii::$app->pay->wechat()->scan($order); // 扫码支付
-        // $pay = Yii::$app->pay->wechat()->pos($order); // 刷卡支付
-        // $pay = Yii::$app->pay->wechat()->app($order); // APP 支付
-        // $pay = Yii::$app->pay->wechat()->transfer($order); // 企业付款
-        // $pay = Yii::$app->pay->wechat()->redpack($order); // 普通红包
-        // $pay = Yii::$app->pay->wechat()->groupRedpack($order); // 分裂红包
+        $pay = Yii::$app->pay->getWechat()->mp($order); // 公众号支付
+        // $pay = Yii::$app->pay->getWechat()->miniapp($order); // 小程序支付
+        // $pay = Yii::$app->pay->getWechat()->wap($order); // H5 支付
+        // $pay = Yii::$app->pay->getWechat()->scan($order); // 扫码支付
+        // $pay = Yii::$app->pay->getWechat()->pos($order); // 刷卡支付
+        // $pay = Yii::$app->pay->getWechat()->app($order); // APP 支付
+        // $pay = Yii::$app->pay->getWechat()->transfer($order); // 企业付款
+        // $pay = Yii::$app->pay->getWechat()->redpack($order); // 普通红包
+        // $pay = Yii::$app->pay->getWechat()->groupRedpack($order); // 分裂红包
 
         // $pay->appId
         // $pay->timeStamp
@@ -195,10 +202,12 @@ class PayController extends Controller
 
     public function actionNotify()
     {
-        $pay = Yii::$app->pay->wechat();
+        $pay = Yii::$app->pay->getWechat();
 
         try{
             $data = $pay->verify();
+            
+            Yii::$app->pay->getLog()->debug('Alipay notify', $data->all());
         } catch (\Exception $e) {
             // $e->getMessage();
         }

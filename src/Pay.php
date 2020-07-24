@@ -82,7 +82,7 @@ class Pay extends Component
      */
     public function getAlipay()
     {
-        if (empty($this->wechat)) {
+        if (empty($this->alipay)) {
             throw new InvalidConfigException(sprintf('Configuration cannot be empty. : %s', 'alipayOption'));
         }
 

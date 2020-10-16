@@ -24,15 +24,15 @@ $config = [
                 'cert_client' => './cert/apiclient_cert.pem', // optional，退款等情况时用到
                 'cert_key' => './cert/apiclient_key.pem', // optional，退款等情况时用到
                 'log' => [ // optional
-                           'file' => './logs/wechat.log',
-                           'level' => 'info', // 建议生产环境等级调整为 info，开发环境为 debug
-                           'type' => 'single', // optional, 可选 daily.
-                           'max_file' => 30, // optional, 当 type 为 daily 时有效，默认 30 天
+                    'file' => './logs/wechat.log',
+                    'level' => 'info', // 建议生产环境等级调整为 info，开发环境为 debug
+                    'type' => 'single', // optional, 可选 daily.
+                    'max_file' => 30, // optional, 当 type 为 daily 时有效，默认 30 天
                 ],
                 'http' => [ // optional
-                            'timeout' => 5.0,
-                            'connect_timeout' => 5.0,
-                            // 更多配置项请参考 [Guzzle](https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html)
+                    'timeout' => 5.0,
+                    'connect_timeout' => 5.0,
+                    // 更多配置项请参考 [Guzzle](https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html)
                 ],
                 // 'mode' => 'dev', // optional, dev/hk;当为 `hk` 时，为香港 gateway。
             ],
@@ -47,15 +47,15 @@ $config = [
                 // 'app_cert_public_key' => './cert/appCertPublicKey.crt', //应用公钥证书路径
                 // 'alipay_root_cert' => './cert/alipayRootCert.crt', //支付宝根证书路径
                 'log' => [ // optional
-                           'file' => './logs/alipay.log',
-                           'level' => 'info', // 建议生产环境等级调整为 info，开发环境为 debug
-                           'type' => 'single', // optional, 可选 daily.
-                           'max_file' => 30, // optional, 当 type 为 daily 时有效，默认 30 天
+                    'file' => './logs/alipay.log',
+                    'level' => 'info', // 建议生产环境等级调整为 info，开发环境为 debug
+                    'type' => 'single', // optional, 可选 daily.
+                    'max_file' => 30, // optional, 当 type 为 daily 时有效，默认 30 天
                 ],
                 'http' => [ // optional
-                            'timeout' => 5.0,
-                            'connect_timeout' => 5.0,
-                            // 更多配置项请参考 [Guzzle](https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html)
+                    'timeout' => 5.0,
+                    'connect_timeout' => 5.0,
+                    // 更多配置项请参考 [Guzzle](https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html)
                 ],
                 // 'mode' => 'dev', // optional,设置此参数，将进入沙箱模式
             ],

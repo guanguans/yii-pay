@@ -15,7 +15,6 @@ use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
 
 /**
  * Class Pay.
@@ -27,74 +26,65 @@ class Pay extends Component
     /**
      * @var array
      */
-    public $wechatOption = [];
+    public $wechatOptions = [];
 
     /**
      * @var array
      */
-    public $alipayOption = [];
+    public $alipayOptions = [];
 
+    /**
+     * @var \Yansongda\Pay\Gateways\Alipay
+     */
     protected $alipay;
 
+    /**
+     * @var \Yansongda\Pay\Gateways\Wechat
+     */
     protected $wechat;
 
+    /**
+     * @var \Yansongda\Pay\Log
+     */
     protected $log;
 
     /**
      * Initializes the object.
      * This method is invoked at the end of the constructor after the object is initialized with the given configuration.
-     *
-     * @throws \yii\base\InvalidConfigException
      */
     public function init()
     {
         parent::init();
-
-        $this->log = Yii::createObject(Log::class);
-
-        if ($this->wechatOption) {
-            $this->wechat = YsdPay::wechat($this->wechatOption);
-        }
-
-        if ($this->alipayOption) {
-            $this->alipay = YsdPay::alipay($this->alipayOption);
-        }
     }
 
     /**
-     * @return mixed
+     * @return \Yansongda\Pay\Gateways\Alipay
+     */
+    public function getAlipay(array $alipayOptions = [])
+    {
+        $alipayOptions && $this->alipayOptions = array_merge($this->alipayOptions, $alipayOptions);
+
+        return YsdPay::alipay($this->alipayOptions);
+    }
+
+    /**
+     * @return \Yansongda\Pay\Gateways\Wechat
+     */
+    public function getWechat(array $wechatOptions = [])
+    {
+        $wechatOptions && $this->wechatOptions = array_merge($this->wechatOptions, $wechatOptions);
+
+        return YsdPay::wechat($this->wechatOptions);
+    }
+
+    /**
+     * @return object|\Yansongda\Pay\Log
      *
      * @throws \yii\base\InvalidConfigException
-     */
-    public function getWechat()
-    {
-        if (empty($this->wechat)) {
-            throw new InvalidConfigException(sprintf('Configuration cannot be empty. : %s', 'wechatOption'));
-        }
-
-        return $this->wechat;
-    }
-
-    /**
-     * @return mixed
-     *
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getAlipay()
-    {
-        if (empty($this->alipay)) {
-            throw new InvalidConfigException(sprintf('Configuration cannot be empty. : %s', 'alipayOption'));
-        }
-
-        return $this->alipay;
-    }
-
-    /**
-     * @return mixed
      */
     public function getLog()
     {
-        return $this->log;
+        return Yii::createObject(Log::class);
     }
 
     /**
@@ -102,9 +92,11 @@ class Pay extends Component
      * @param array  $arguments
      *
      * @return mixed
+     *
+     * @throws \yii\base\InvalidConfigException
      */
     public function __call($method, $arguments)
     {
-        return call_user_func_array([$this->log, $method], $arguments);
+        return call_user_func_array([$this->getLog(), $method], $arguments);
     }
 }

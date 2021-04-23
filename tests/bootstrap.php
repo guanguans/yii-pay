@@ -15,4 +15,4 @@ require_once __DIR__.'/../vendor/yiisoft/yii2/Yii.php';
 
 $config = require __DIR__.'/main.php';
 
-$app = new yii\web\Application($config);
+$app = new yii\console\Application($config);

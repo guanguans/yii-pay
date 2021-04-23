@@ -9,3 +9,4 @@ composer.lock
 tests.php
 /logs
 .history
+.phpunit.result.cache

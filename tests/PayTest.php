@@ -20,7 +20,7 @@ class PayTest extends TestCase
 {
     protected $pay;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->pay = Yii::$app->pay;
@@ -95,7 +95,7 @@ class PayTest extends TestCase
                 ],
             ],
         ];
-        $app = new yii\web\Application($config);
+        $app = new yii\console\Application($config);
         $this->expectException(InvalidConfigException::class);
         $this->expectExceptionMessage(sprintf('Configuration cannot be empty. : %s', 'wechatOption'));
         Yii::$app->pay->getWechat();
@@ -134,7 +134,7 @@ class PayTest extends TestCase
                 ],
             ],
         ];
-        $app = new yii\web\Application($config);
+        $app = new yii\console\Application($config);
         $this->expectException(InvalidConfigException::class);
         $this->expectExceptionMessage(sprintf('Configuration cannot be empty. : %s', 'alipayOption'));
         Yii::$app->pay->getAlipay();

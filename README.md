@@ -32,7 +32,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
 	// ...
 	'pay' => [
         'class' => 'Guanguans\YiiPay\Pay',
-        'wechatOption' => [
+        'wechatOptions' => [
             'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
             'app_id' => 'wxb3fxxxxxxxxxxx', // 公众号 APPID
             'miniapp_id' => 'wxb3fxxxxxxxxxxx', // 小程序 APPID
@@ -54,7 +54,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
             ],
             // 'mode' => 'dev', // optional, dev/hk;当为 `hk` 时，为香港 gateway。
         ],
-        'alipayOption' => [
+        'alipayOptions' => [
             'app_id' => '2016082000295641',
             'notify_url' => 'http://xxxxxx.cn/notify.php',
             'return_url' => 'http://xxxxxx.cn/return.php',

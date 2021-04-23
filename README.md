@@ -20,7 +20,7 @@
 ## 安装
 
 ``` shell
-$ composer require guanguans/yii-pay -v
+$ composer require guanguans/yii-pay --prefer-dist -v
 ```
 
 ## 配置

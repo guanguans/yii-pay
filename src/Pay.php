@@ -34,14 +34,14 @@ class Pay extends Component
     public $alipayOptions = [];
 
     /**
-     * @var \Yansongda\Pay\Gateways\Alipay
-     */
-    protected $alipay;
-
-    /**
      * @var \Yansongda\Pay\Gateways\Wechat
      */
-    protected $wechat;
+    private static $_wechat;
+
+    /**
+     * @var \Yansongda\Pay\Gateways\Alipay
+     */
+    private static $_alipay;
 
     /**
      * @var \Yansongda\Pay\Log
@@ -58,23 +58,29 @@ class Pay extends Component
     }
 
     /**
-     * @return \Yansongda\Pay\Gateways\Alipay
-     */
-    public function getAlipay(array $alipayOptions = [])
-    {
-        $alipayOptions && $this->alipayOptions = array_merge($this->alipayOptions, $alipayOptions);
-
-        return YsdPay::alipay($this->alipayOptions);
-    }
-
-    /**
      * @return \Yansongda\Pay\Gateways\Wechat
      */
     public function getWechat(array $wechatOptions = [])
     {
         $wechatOptions && $this->wechatOptions = array_merge($this->wechatOptions, $wechatOptions);
+        if (!static::$_wechat instanceof \Yansongda\Pay\Gateways\Wechat || $wechatOptions) {
+            static::$_wechat = YsdPay::wechat($this->wechatOptions);
+        }
 
-        return YsdPay::wechat($this->wechatOptions);
+        return static::$_wechat;
+    }
+
+    /**
+     * @return \Yansongda\Pay\Gateways\Alipay
+     */
+    public function getAlipay(array $alipayOptions = [])
+    {
+        $alipayOptions && $this->alipayOptions = array_merge($this->alipayOptions, $alipayOptions);
+        if (!static::$_alipay instanceof \Yansongda\Pay\Gateways\Alipay || $alipayOptions) {
+            static::$_alipay = YsdPay::alipay($this->alipayOptions);
+        }
+
+        return static::$_alipay;
     }
 
     /**

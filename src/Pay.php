@@ -10,7 +10,6 @@
 
 namespace Guanguans\YiiPay;
 
-use Guanguans\YiiPay\Traits\Macroable;
 use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
 use Yii;
@@ -21,8 +20,6 @@ use yii\base\Component;
  */
 class Pay extends Component
 {
-    use Macroable;
-
     /**
      * @var array
      */
@@ -46,7 +43,7 @@ class Pay extends Component
     /**
      * @var \Yansongda\Pay\Log
      */
-    protected $log;
+    private $log;
 
     /**
      * Initializes the object.
@@ -55,6 +52,7 @@ class Pay extends Component
     public function init()
     {
         parent::init();
+        $this->log = Yii::createObject(Log::class);
     }
 
     /**
@@ -90,7 +88,7 @@ class Pay extends Component
      */
     public function getLog()
     {
-        return Yii::createObject(Log::class);
+        return $this->log;
     }
 
     /**
@@ -103,6 +101,6 @@ class Pay extends Component
      */
     public function __call($method, $arguments)
     {
-        return call_user_func_array([$this->getLog(), $method], $arguments);
+        return call_user_func_array([$this->log, $method], $arguments);
     }
 }

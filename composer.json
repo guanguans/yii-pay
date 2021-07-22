@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "^2.0",
+        "yiisoft/yii2": "^2.0 || ^2.0",
         "yansongda/pay": "^2.0"
     },
     "require-dev": {

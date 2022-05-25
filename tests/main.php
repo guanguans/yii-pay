@@ -14,6 +14,7 @@ $config = [
     'components' => [
         'pay' => [
             'class' => 'Guanguans\YiiPay\Pay',
+            // 'defaultDriver' => 'wechat',
             'wechatOptions' => [
                 'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
                 'app_id' => 'wxb3fxxxxxxxxxxx', // 公众号 APPID

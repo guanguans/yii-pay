@@ -10,10 +10,12 @@
 
 namespace Guanguans\Tests;
 
+use Symfony\Component\HttpFoundation\Response;
 use Yansongda\Pay\Gateways\Alipay;
 use Yansongda\Pay\Gateways\Wechat;
 use Yansongda\Pay\Log;
 use Yii;
+use yii\base\InvalidConfigException;
 
 class PayTest extends TestCase
 {
@@ -27,8 +29,9 @@ class PayTest extends TestCase
 
     public function testGetWechat()
     {
-        $this->assertInstanceOf(Wechat::class, $this->pay->getWechat());
-        $this->assertInstanceOf(Wechat::class, $this->pay->getWechat([
+        $this->assertInstanceOf(Wechat::class, $wechatA = $this->pay->getWechat());
+        $this->assertInstanceOf(Wechat::class, $wechatB = $this->pay->wechat);
+        $this->assertInstanceOf(Wechat::class, $wechatC = $this->pay->getWechat([
             'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
             'app_id' => 'wxb3fxxxxxxxxxxx', // 公众号 APPID
             'miniapp_id' => 'wxb3fxxxxxxxxxxx', // 小程序 APPID
@@ -49,12 +52,16 @@ class PayTest extends TestCase
                         // 更多配置项请参考 [Guzzle](https://guzzle-cn.readthedocs.io/zh_CN/latest/request-options.html)
             ],
         ]));
-        $this->assertInstanceOf(Wechat::class, $this->pay->wechat);
+
+        $this->assertSame($wechatA, $wechatB);
+        $this->assertNotSame($wechatA, $wechatC);
     }
 
     public function testGetAlipay()
     {
-        $this->assertInstanceOf(Alipay::class, $this->pay->getAlipay([
+        $this->assertInstanceOf(Alipay::class, $alipayA = $this->pay->getAlipay());
+        $this->assertInstanceOf(Alipay::class, $alipayB = $this->pay->alipay);
+        $this->assertInstanceOf(Alipay::class, $alipayC = $this->pay->getAlipay([
             'app_id' => '2016082000295641',
             'notify_url' => 'http://xxxxxx.cn/notify.php',
             'return_url' => 'http://xxxxxx.cn/return.php',
@@ -77,7 +84,9 @@ class PayTest extends TestCase
             ],
             // 'mode' => 'dev', // optional,设置此参数，将进入沙箱模式
         ]));
-        $this->assertInstanceOf(Alipay::class, $this->pay->alipay);
+
+        $this->assertSame($alipayA, $alipayB);
+        $this->assertNotSame($alipayA, $alipayC);
     }
 
     public function testGetLog()
@@ -88,17 +97,14 @@ class PayTest extends TestCase
 
     public function testCall()
     {
-        $mock_string = 'mock_string';
-        $mock_array = ['mock_array'];
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessage('The default driver is not set.');
+        $this->pay->success();
 
-        $this->assertSame($this->pay->log->log(100, $mock_string), $this->pay->log(100, $mock_string));
-        $this->assertSame($this->pay->log->debug($mock_string, $mock_array), $this->pay->debug($mock_string, $mock_array));
-        $this->assertSame($this->pay->log->info($mock_string, $mock_array), $this->pay->info($mock_string, $mock_array));
-        $this->assertSame($this->pay->log->notice($mock_string, $mock_array), $this->pay->notice($mock_string, $mock_array));
-        $this->assertSame($this->pay->log->warning($mock_string, $mock_array), $this->pay->warning($mock_string, $mock_array));
-        $this->assertSame($this->pay->log->error($mock_string, $mock_array), $this->pay->error($mock_string, $mock_array));
-        $this->assertSame($this->pay->log->critical($mock_string, $mock_array), $this->pay->critical($mock_string, $mock_array));
-        $this->assertSame($this->pay->log->alert($mock_string, $mock_array), $this->pay->alert($mock_string, $mock_array));
-        $this->assertSame($this->pay->log->emergency($mock_string, $mock_array), $this->pay->emergency($mock_string, $mock_array));
+        Yii::configure($this->pay, ['defaultDriver' => 'wechat']);
+        $this->assertInstanceOf(Response::class, $this->pay->success());
+
+        Yii::configure($this->pay, ['defaultDriver' => 'alipay']);
+        $this->assertInstanceOf(Response::class, $this->pay->success());
     }
 }

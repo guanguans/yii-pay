@@ -14,12 +14,21 @@ use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
 use Yii;
 use yii\base\Component;
+use yii\base\InvalidConfigException;
 
 /**
- * Class Pay.
+ * @property string                         $defaultDriver
+ * @property \Yansongda\Pay\Gateways\Wechat $wechat
+ * @property \Yansongda\Pay\Gateways\Alipay $alipay
+ * @property \Yansongda\Pay\Log             $log
  */
 class Pay extends Component
 {
+    /**
+     * @var string
+     */
+    private $defaultDriver;
+
     /**
      * @var array
      */
@@ -56,11 +65,31 @@ class Pay extends Component
     }
 
     /**
+     * @return string
+     */
+    public function getDefaultDriver()
+    {
+        return $this->defaultDriver;
+    }
+
+    /**
+     * @param string $defaultDriver
+     */
+    public function setDefaultDriver($defaultDriver)
+    {
+        if (! in_array($defaultDriver, ['wechat', 'alipay'])) {
+            throw new InvalidConfigException("Invalid default driver(wechat/alipay): $defaultDriver");
+        }
+
+        $this->defaultDriver = $defaultDriver;
+    }
+
+    /**
      * @return \Yansongda\Pay\Gateways\Wechat
      */
     public function getWechat(array $wechatOptions = [])
     {
-        $wechatOptions && $this->wechatOptions = array_merge($this->wechatOptions, $wechatOptions);
+        $wechatOptions and $this->wechatOptions = array_merge($this->wechatOptions, $wechatOptions);
         if (! static::$_wechat instanceof \Yansongda\Pay\Gateways\Wechat || $wechatOptions) {
             static::$_wechat = YsdPay::wechat($this->wechatOptions);
         }
@@ -73,7 +102,7 @@ class Pay extends Component
      */
     public function getAlipay(array $alipayOptions = [])
     {
-        $alipayOptions && $this->alipayOptions = array_merge($this->alipayOptions, $alipayOptions);
+        $alipayOptions and $this->alipayOptions = array_merge($this->alipayOptions, $alipayOptions);
         if (! static::$_alipay instanceof \Yansongda\Pay\Gateways\Alipay || $alipayOptions) {
             static::$_alipay = YsdPay::alipay($this->alipayOptions);
         }
@@ -101,6 +130,10 @@ class Pay extends Component
      */
     public function __call($method, $arguments)
     {
-        return call_user_func_array([$this->log, $method], $arguments);
+        if (is_null($this->defaultDriver)) {
+            throw new InvalidConfigException('The default driver is not set.');
+        }
+
+        return call_user_func_array([$this->{$this->defaultDriver}, $method], $arguments);
     }
 }

@@ -19,7 +19,7 @@
         "source": "https://github.com/guanguans/yii-pay"
     },
     "require": {
-        "yansongda/pay": "^2.0",
+        "yansongda/pay": "^2.0 || ^3.0",
         "yiisoft/yii2": "^2.0"
     },
     "require-dev": {

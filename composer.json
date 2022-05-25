@@ -24,7 +24,11 @@
         "yansongda/pay": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0|^8.0|^9.0"
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "friendsofphp/php-cs-fixer": "^2.0 || ^3.0",
+        "mockery/mockery": "^1.3",
+        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+        "vimeo/psalm": "^3.0 || ^4.0 || ^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -36,10 +40,37 @@
             "Guanguans\\Tests\\": "tests"
         }
     },
-    "scripts": {
-        "test": "./vendor/bin/phpunit --coverage-text --color=always --verbose"
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "composer test",
+                "composer style-lint"
+            ],
+            "pre-push": [
+                "composer test",
+                "composer style-lint"
+            ]
+        }
     },
-    "scripts-descriptions": {
-        "test": "Run the phpunit test."
+    "scripts": {
+        "post-install-cmd": [
+            "cghooks add --ignore-lock",
+            "cghooks update"
+        ],
+        "post-update-cmd": [
+            "cghooks update"
+        ],
+        "cghooks": "./vendor/bin/cghooks",
+        "post-merge": "composer install",
+        "psalm": "./vendor/bin/psalm",
+        "style-fix": "php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
+        "style-lint": "php-cs-fixer fix --using-cache=no --diff --config=.php-cs-fixer.php --dry-run --ansi",
+        "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
     }
 }

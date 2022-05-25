@@ -30,6 +30,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
 	// ...
 	'pay' => [
         'class' => 'Guanguans\YiiPay\Pay',
+        // 'defaultDriver' => 'wechat', // 默认支付驱动[wechat, alipay] 若配置为 wechat：`Yii::$app->pay->wap();` 等效于 `Yii::$app->pay->wechat->wap();` 
         'wechatOptions' => [
             'appid' => 'wxb3fxxxxxxxxxxx', // APP APPID
             'app_id' => 'wxb3fxxxxxxxxxxx', // 公众号 APPID

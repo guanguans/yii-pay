@@ -21,6 +21,21 @@ use yii\base\InvalidConfigException;
  * @property \Yansongda\Pay\Gateways\Wechat $wechat
  * @property \Yansongda\Pay\Gateways\Alipay $alipay
  * @property \Yansongda\Pay\Log             $log
+ *
+ * @method \Symfony\Component\HttpFoundation\Response         app(array $config)          APP 支付
+ * @method \Yansongda\Supports\Collection                     groupRedpack(array $config) 分裂红包
+ * @method \Yansongda\Supports\Collection                     miniapp(array $config)      小程序支付
+ * @method \Yansongda\Supports\Collection                     mp(array $config)           公众号支付
+ * @method \Yansongda\Supports\Collection                     pos(array $config)          刷卡支付
+ * @method \Yansongda\Supports\Collection                     redpack(array $config)      普通红包
+ * @method \Yansongda\Supports\Collection                     scan(array $config)         扫码支付
+ * @method \Yansongda\Supports\Collection                     transfer(array $config)     企业付款
+ * @method \Symfony\Component\HttpFoundation\RedirectResponse wap(array $config)          H5 支付
+ * @method \Symfony\Component\HttpFoundation\Response         web(array $config)          电脑支付
+ * @method \Yansongda\Supports\Collection                     mini(array $config)         小程序支付
+ *
+ * @see \Yansongda\Pay\Gateways\Wechat
+ * @see \Yansongda\Pay\Gateways\Alipay
  */
 class Pay extends Component
 {

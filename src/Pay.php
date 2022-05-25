@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of the guanguans/yii-pay.
  *
  * (c) guanguans <ityaozm@gmail.com>
@@ -61,7 +61,7 @@ class Pay extends Component
     public function getWechat(array $wechatOptions = [])
     {
         $wechatOptions && $this->wechatOptions = array_merge($this->wechatOptions, $wechatOptions);
-        if (! static::$_wechat instanceof \Yansongda\Pay\Gateways\Wechat || $wechatOptions) {
+        if (!static::$_wechat instanceof \Yansongda\Pay\Gateways\Wechat || $wechatOptions) {
             static::$_wechat = YsdPay::wechat($this->wechatOptions);
         }
 
@@ -74,7 +74,7 @@ class Pay extends Component
     public function getAlipay(array $alipayOptions = [])
     {
         $alipayOptions && $this->alipayOptions = array_merge($this->alipayOptions, $alipayOptions);
-        if (! static::$_alipay instanceof \Yansongda\Pay\Gateways\Alipay || $alipayOptions) {
+        if (!static::$_alipay instanceof \Yansongda\Pay\Gateways\Alipay || $alipayOptions) {
             static::$_alipay = YsdPay::alipay($this->alipayOptions);
         }
 

@@ -4,13 +4,11 @@
 
 <p align="center"><img src="./docs/usage.png"></p>
 
-[![Build Status](https://travis-ci.org/guanguans/yii-pay.svg?branch=master)](https://travis-ci.org/guanguans/yii-pay)
-[![Build Status](https://scrutinizer-ci.com/g/guanguans/yii-pay/badges/build.png?b=master)](https://scrutinizer-ci.com/g/guanguans/yii-pay/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/guanguans/yii-pay/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/guanguans/yii-pay/?branch=master)
+[![tests](https://github.com/guanguans/yii-pay/actions/workflows/run-tests.yml/badge.svg)](https://github.com/guanguans/yii-pay/actions/workflows/run-tests.yml)
+[![check & fix styling](https://github.com/guanguans/yii-pay/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/guanguans/yii-pay/actions/workflows/php-cs-fixer.yml)
 [![codecov](https://codecov.io/gh/guanguans/yii-pay/branch/master/graph/badge.svg)](https://codecov.io/gh/guanguans/yii-pay)
-[![StyleCI](https://github.styleci.io/repos/247638891/shield?branch=master)](https://github.styleci.io/repos/247638891)
-[![Total Downloads](https://poser.pugx.org/guanguans/yii-pay/downloads)](https://packagist.org/packages/guanguans/yii-pay)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/yii-pay/v/stable)](https://packagist.org/packages/guanguans/yii-pay)
+[![Total Downloads](https://poser.pugx.org/guanguans/yii-pay/downloads)](https://packagist.org/packages/guanguans/yii-pay)
 [![License](https://poser.pugx.org/guanguans/yii-pay/license)](https://packagist.org/packages/guanguans/yii-pay)
 
 ## 环境要求
@@ -19,7 +17,7 @@
 
 ## 安装
 
-``` shell
+```shell
 $ composer require guanguans/yii-pay --prefer-dist -v
 ```
 
@@ -27,7 +25,7 @@ $ composer require guanguans/yii-pay --prefer-dist -v
 
 Yii2 配置文件 `config/main.php` 的 components 中添加:
 
-``` php
+```php
 'components' => [
 	// ...
 	'pay' => [
@@ -86,7 +84,7 @@ Yii2 配置文件 `config/main.php` 的 components 中添加:
 
 ### 获取 alipay 实例
 
-``` php
+```php
 Yii::$app->pay->getAlipay();
 // or
 Yii::$app->pay->alipay;
@@ -157,7 +155,7 @@ class PayController extends Controller
 
 ### 获取微信实例
 
-``` php
+```php
 Yii::$app->pay->getWechat();
 // or
 Yii::$app->pay->wechat;
@@ -219,7 +217,7 @@ class PayController extends Controller
 
 ## 测试
 
-``` shell
+```shell
 $ composer test
 ```
 

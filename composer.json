@@ -1,27 +1,26 @@
 {
     "name": "guanguans/yii-pay",
+    "description": "适配于 Yii 的 alipay 和 wechat 的支付扩展包",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "pay",
         "alipay",
         "wechat"
     ],
-    "description": "适配于 Yii 的 alipay 和 wechat 的支付扩展包",
-    "support": {
-        "issues": "https://github.com/guanguans/yii-pay/issues",
-        "source": "https://github.com/guanguans/yii-pay"
-    },
-    "type": "library",
-    "minimum-stability": "dev",
-    "license": "MIT",
     "authors": [
         {
             "name": "guanguans",
             "email": "ityaozm@gmail.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/guanguans/yii-pay/issues",
+        "source": "https://github.com/guanguans/yii-pay"
+    },
     "require": {
-        "yiisoft/yii2": "^2.0",
-        "yansongda/pay": "^2.0"
+        "yansongda/pay": "^2.0",
+        "yiisoft/yii2": "^2.0"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
@@ -30,6 +29,7 @@
         "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
         "vimeo/psalm": "^3.0 || ^4.0 || ^5.0"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Guanguans\\YiiPay\\": "src"
@@ -38,6 +38,11 @@
     "autoload-dev": {
         "psr-4": {
             "Guanguans\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     },
     "extra": {
@@ -67,10 +72,5 @@
         "style-lint": "php-cs-fixer fix --using-cache=no --diff --config=.php-cs-fixer.php --dry-run --ansi",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
-    },
-    "config": {
-        "allow-plugins": {
-            "yiisoft/yii2-composer": true
-        }
     }
 }

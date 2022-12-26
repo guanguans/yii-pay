@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Yansongda\Pay\Gateways\Alipay;
 use Yansongda\Pay\Gateways\Wechat;
 use Yansongda\Pay\Log;
-use Yii;
 use yii\base\InvalidConfigException;
 
 class PayTest extends TestCase
@@ -24,7 +23,7 @@ class PayTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->pay = Yii::$app->pay;
+        $this->pay = \Yii::$app->pay;
     }
 
     public function testGetWechat()
@@ -101,10 +100,10 @@ class PayTest extends TestCase
         $this->expectExceptionMessage('The default driver is not set.');
         $this->pay->success();
 
-        Yii::configure($this->pay, ['defaultDriver' => 'wechat']);
+        \Yii::configure($this->pay, ['defaultDriver' => 'wechat']);
         $this->assertInstanceOf(Response::class, $this->pay->success());
 
-        Yii::configure($this->pay, ['defaultDriver' => 'alipay']);
+        \Yii::configure($this->pay, ['defaultDriver' => 'alipay']);
         $this->assertInstanceOf(Response::class, $this->pay->success());
     }
 }

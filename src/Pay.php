@@ -12,7 +12,6 @@ namespace Guanguans\YiiPay;
 
 use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay as YsdPay;
-use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 
@@ -76,7 +75,7 @@ class Pay extends Component
     public function init()
     {
         parent::init();
-        $this->log = Yii::createObject(Log::class);
+        $this->log = \Yii::createObject(Log::class);
     }
 
     /**

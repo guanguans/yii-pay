@@ -19,7 +19,7 @@ use yii\base\InvalidConfigException;
  * @property string                         $defaultDriver
  * @property \Yansongda\Pay\Gateways\Wechat $wechat
  * @property \Yansongda\Pay\Gateways\Alipay $alipay
- * @property \Yansongda\Pay\Log             $log
+ * @property Log                            $log
  *
  * @method \Symfony\Component\HttpFoundation\Response         app(array $config)          APP 支付
  * @method \Yansongda\Supports\Collection                     groupRedpack(array $config) 分裂红包
@@ -64,7 +64,7 @@ class Pay extends Component
     private static $_alipay;
 
     /**
-     * @var \Yansongda\Pay\Log
+     * @var Log
      */
     private $log;
 
@@ -125,9 +125,9 @@ class Pay extends Component
     }
 
     /**
-     * @return object|\Yansongda\Pay\Log
+     * @return object|Log
      *
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function getLog()
     {
@@ -138,9 +138,7 @@ class Pay extends Component
      * @param string $method
      * @param array  $arguments
      *
-     * @return mixed
-     *
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function __call($method, $arguments)
     {
